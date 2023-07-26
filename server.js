@@ -7,6 +7,12 @@ const datas = require('./model/Products')
 const Cart = require('./model/Cart')
 const routerProducts = require('./Router/Products')
 const routerCart = require('./Router/Cart')
+const multer = require('multer');
+const upload = require("./Util/multer");
+const dotenv = require('dotenv')
+const cloudinary = require('./Util/cloudinary')
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+dotenv.config();
 
 const app = express();
 
@@ -34,6 +40,19 @@ const io = new Server(server,{
 
 app.use('/',routerProducts);
 app.use('/Cart',routerCart);
+
+
+
+
+app.post('/uploads',upload.single("image"),async (req,res)=>{
+    try{
+        console.log(req.file);
+        res.send(req.file.path);
+    }
+    catch(err){
+        res.json(err); 
+    }
+})
 
 
 io.on('connection',socket=>{

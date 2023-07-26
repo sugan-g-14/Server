@@ -15,7 +15,8 @@ exports.getData = async (req,res) =>{
 
 exports.addData = async (req,res) =>{
     try{
-        // console.log(req.body);
+        console.log("calling add");
+        console.log(req.body);
         // res.send(req.body);
         const newData = await datas.create(req.body);
         return res.status(201).json({
@@ -50,3 +51,13 @@ exports.addCart = async(req,res) =>{
         res.send(err);
     }
 }
+
+// exports.increment = async(req,res) =>{
+//     try{
+//         const updated = req.body.count++;
+//         const updateData = await cartDatas.findOneAndUpdate({id:req.body.id},updated,{new:true})
+//     }
+//     catch(err){
+        
+//     }
+// }
